@@ -8,7 +8,7 @@ trigger:
 
 pool: 
   name: Default
-  vmImage: LAPTOP-QIJC73OK
+  vmImage: DINESH-127
 
 steps:
 - task: NodeTool@0
@@ -22,9 +22,14 @@ steps:
   displayName: 'npm install and build'
 
 
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'src'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '''C:\Users\YASWANTH\Downloads\New folder'''
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
-    publishLocation: 'FilePath'
-    TargetPath: '''C:\Users\YASWANTH\Downloads\New folder'''
+    publishLocation: 'Container'
